@@ -15,12 +15,14 @@
         <div class="container">
           <div class ="status">
             <div class="row">
-                <div class="col">
+                <div class="col-4">
                   <h2>Rule</h2>
                 </div>
-              
-              <div class="col">
-                <h2>Exception</h2>
+              <div class="col-4">
+                <h2>Status: Exception</h2>
+              </div>
+              <div class="col-4">
+                <span class ="dot"></span>
               </div>
             </div>
           </div>
@@ -56,6 +58,19 @@
                 </div>
             </div>        
         </div>
+        <form>
+          <div class="mb-3">
+            <h3>New Exception</h3>
+            <label for="exampleInputEmail1" class="form-label">Justification</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Next Review Date</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
       </div>
     </main>
 	<script src="index.js"></script>
