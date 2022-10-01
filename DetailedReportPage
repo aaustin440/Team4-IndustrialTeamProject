@@ -12,16 +12,22 @@
   </head>
   <body>
     <main>
+      <nav class="navbar bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+        </div>
+      </nav>
         <div class="container">
+          
           <div class ="status">
             <div class="row">
-                <div class="col-4">
+                <div class="col-6">
                   <h2>Rule</h2>
                 </div>
               <div class="col-4">
                 <h2>Status: Exception</h2>
               </div>
-              <div class="col-4">
+              <div class="col-1">
                 <span class ="dot"></span>
               </div>
             </div>
@@ -61,13 +67,17 @@
         <form>
           <div class="mb-3">
             <h3>New Exception</h3>
-            <label for="exampleInputEmail1" class="form-label">Justification</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <label for="justificationInput" class="form-label">Justification</label>
+            <textarea class="form-control" aria-label="With textarea"></textarea>
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Next Review Date</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <select class="form-select form-select-sm size=" aria-label=".form-select-sm example">
+              <option selected>Next Review Date</option>
+              <option value="1">3 Months</option>
+              <option value="2">6 Months</option>
+              <option value="3">1 Year</option>
+              <option value="3">2 Years</option>
+            </select>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
