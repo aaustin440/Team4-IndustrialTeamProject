@@ -4,7 +4,9 @@ body{
     color: white;
 }
 
-
+.container{
+    padding-bottom: 20px;
+}
 .status{
     padding-top: 5%;
     padding-bottom: 5%;
@@ -15,8 +17,8 @@ h2, h3{
 }
 
 .dot {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     background-color: orange;
     border-radius: 50%;
     display: inline-block;
