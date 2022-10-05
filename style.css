@@ -2,10 +2,13 @@ body{
     font-family: 'Montserrat';
     background-color: teal;
     color: white;
+    
 }
+
 
 .container{
     padding-bottom: 20px;
+    padding-top: 50px;
 }
 .status{
     padding-top: 5%;
@@ -16,30 +19,46 @@ h2, h3{
     font-weight: bold;
 }
 
+th{
+    color: white;
+}
 .dot {
     height: 40px;
     width: 40px;
-    background-color: orange;
+    background-color: rgb(23, 235, 52);
     border-radius: 50%;
     display: inline-block;
   }
 
-  .bstn{
-  background-color: #ffffff;
-  background-color: #ffffff;
-  border: none;
-  margin-left: 10px;
-  color: #0d5257;
-  text-decoration-color:
-  padding: 15px 32px;
+.dropdown{
+    margin-top: 25px;
 }
 
-.bstn:hover{
-  background-color: #ffffff;
-  background-color: #ffffff;
-  border: none;
-  margin-left: 10px%;
-  color: #0d5257;
-  text-decoration-color:
-  padding: 15px 32px;
+#sortChange{
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
+
+#fontSize{
+    display: inline;
+}
+
+.bstn{
+    background-color: #ffffff;
+    background-color: #ffffff;
+    border: none;
+    margin-left: 10px;
+    color: #0d5257;
+    text-decoration-color:
+    padding: 15px 32px;
+  }
+  
+  .bstn:hover{
+    background-color: #ffffff;
+    background-color: #ffffff;
+    border: none;
+    margin-left: 10px%;
+    color: #0d5257;
+    text-decoration-color:
+    padding: 15px 32px;
+  }
