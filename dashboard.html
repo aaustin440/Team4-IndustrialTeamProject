@@ -6,56 +6,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link href="Style.css" rel="stylesheet"
+  <link rel="stylesheet" href="./style.css">
   <!-- need to agree on font, colours, bootstrap version -->
 </head>
 <body>
-    <header>
-      <!-- Image and text -->
-      <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-          Bootstrap
-        </a>
+    <main>
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+        </div>
       </nav>
-    </header>
 
+    <div class="container" id ="container">
+        <h2>Summary Dashboard</h2>
+        <div class ="row" id ="sortChange">
+            
+            <div class="col-8" id ="fontSize">
+            <h3>Change Font Size</h3>
+                <button type="button" 
+                    onclick="changeSizeByBtn('medium')" name="btn1">
+                        -
+                </button>
+                    
+                <button type="button" 
+                    onclick="changeSizeByBtn('xx-large')" name="btn2">
+                        +
+                </button>
+            </div>
+            <div class ="col-4">
+                <div class="dropdown">
+                    <button class="bstn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort By
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#"> Review Date</a></li>
+                    <li><a class="dropdown-item" href="#">Exception</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- temp table for demonstration purposes as will need one using php to read from db -->
+        <table class="table">
+                <thead>
+                <tr>
+                    <th>Rule</th>
+                    <th>Description</th>
+                    <th>Number of Resources</th>
+                    <th>Number of Compliant Resources</th>
+                    <th>Number of Exceptions</th>
+                    <th>Status</th>
+                    
+                <th colspan="2">
 
-<p>placeholder</p>
+                </th>
+                </tr>
+            <tr>
+                    <th>filler</th>
+                    <th>filler</th>
+                    <th>filler</th>
+                    <th>filler</th>
+                    <th>filler</th>
+                    <th>filler</th>
+                <th colspan="2">
 
-<div class="dropdown">
-  <button class="bstn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Sort By
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="#"> Review Date</a></li>
-    <li><a class="dropdown-item" href="#">Exception</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
-<!-- temp table for demonstration purposes as will need one using php to read from db -->
-<table class="table">
-    	<thead>
-    	<tr>
-    		<th>Rule</th>
-    		<th>Description</th>
-    		<th>Status</th>
-        <th colspan="2">
-
-        </th>
-    	</tr>
-      <tr>
-    		<th>filler</th>
-    		<th>filler</th>
-    		<th>filler</th>
-        <th colspan="2">
-
-        </th>
-    	</tr>
-    	</thead>
-<script
+                </th>
+                </tr>
+                </thead>
+        </table>
+        </div>
+    </main>
+    <script src="jscript.js"></script>
+    <script
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 
 </script>
-</body>
+    </body>
 </html>
