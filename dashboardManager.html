@@ -46,7 +46,11 @@
                 </div>
             </div>
         </div>
+        <div id ="chart">
+          <canvas id="myChart"></canvas>
+        </div>
         <!-- temp table for demonstration purposes as will need one using php to read from db -->
+        
         <table class="table">
                 <thead>
                 <tr>
@@ -81,5 +85,34 @@
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const data = {
+  labels: [
+    'Non-Compliant',
+    'Compliant'
+  ],
+      datasets: [{
+        label: 'My First Dataset',
+        data: [20, 80],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(34, 139, 34)',
+        ],
+        hoverOffset: 4
+      }]
+    };
+    
+      const config = {
+        type: 'doughnut',
+        data: data,
+    };
+    </script>
+    <script>
+      const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+      );
+    </script>
     </body>
 </html>
