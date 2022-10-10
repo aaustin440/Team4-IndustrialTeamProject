@@ -31,6 +31,7 @@
               </div>
             </div>
           </div>
+          
           <h3>Change Font Size</h3>
           <button type="button" 
           onclick="changeSizeByBtn('medium')" name="btn1">
@@ -41,6 +42,9 @@
           onclick="changeSizeByBtn('xx-large')" name="btn2">
               +
         </button>
+        <div id ="chart">
+          <canvas id="myChart"></canvas>
+        </div>
         <div class="rule-info" id="rule-info">
             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla mauris finibus nulla consectetur, a facilisis ligula rhoncus. Praesent efficitur in dui id
                 pretium. Quisque tincidunt viverra fringilla. Nam a arcu sed tellus interdum porta et quis enim. Maecenas rhoncus odio vel mattis facilisis. Vivamus ullamcorper 
@@ -77,9 +81,54 @@
                 </div>
             </div>        
           </div>
-        
+        <form>
+          <div class="mb-3">
+            <h3>New Exception</h3>
+            <label for="justificationInput" class="form-label">Justification</label>
+            <textarea class="form-control" aria-label="With textarea"></textarea>
+          </div>
+          <div class="mb-3">
+            <p>Next Review Date in Months</p>
+            <input type="text" list="cars" />
+            <datalist id="cars">
+              <option>3</option>
+              <option>6</option>
+              <option>12</option>
+            </datalist>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
       </div>
     </main>
     <script src="jscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const data = {
+  labels: [
+    'Non-Compliant',
+    'Compliant'
+  ],
+      datasets: [{
+        label: 'My First Dataset',
+        data: [20, 80],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(34, 139, 34)',
+        ],
+        hoverOffset: 4
+      }]
+    };
+    
+      const config = {
+        type: 'doughnut',
+        data: data,
+    };
+    </script>
+    <script>
+      const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+      );
+    </script>
   </body>
 </html>
