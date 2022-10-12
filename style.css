@@ -20,13 +20,26 @@ h2, h3{
 th, td{
     color: white;
 }
-.dot {
+
+.rule-info{
+    padding-top: 20px;
+}
+
+.greenDot {
     height: 40px;
     width: 40px;
     background-color: rgb(23, 235, 52);
     border-radius: 50%;
     display: inline-block;
   }
+
+.redDot {
+    height: 40px;
+    width: 40px;
+    background-color: rgb(248, 60, 2);
+    border-radius: 50%;
+    display: inline-block;
+}
 
 .dropdown{
     margin-top: 25px;
