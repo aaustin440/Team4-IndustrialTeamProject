@@ -77,4 +77,7 @@ th, td{
 #chart{
     max-width: 400px;
     max-height: 400px;
+    margin: auto;
+    text-align: center;
+    
 }
