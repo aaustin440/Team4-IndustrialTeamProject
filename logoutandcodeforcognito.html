@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <script src="./script/jquery.min.js"></script>	
+        <script src="./script/aws-sdk-2.487.0.min.js"></script>
+        <script src="./script/aws-cognito-sdk.min.js"></script>
+        <script src="./script/amazon-cognito-identity.min.js"></script>
+
+        <h1>Hello</h1>
+
+        <button onclick="logOut()">logout</button>
+
+
+    <script>
+
+        //=============== AWS IDs ===============
+        var userPoolId = 'us-east-1_GJd4E65mR';
+            var clientId = '7tb3lgotofaugt7rk0hldt199h';
+            var region = 'us-east-1';
+            var identityPoolId = 'us-east-1:a921c9d6-d0d5-417b-8ac2-7768fed47c31';
+            //=============== AWS IDs ===============
+
+            var cognitoUser;
+            var idToken;
+            var userPool;
+
+            var poolData = { 
+            UserPoolId : userPoolId,
+            ClientId : clientId
+        };
+
+        function logOut(){
+                    
+            userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+            cognitoUser = userPool.getCurrentUser();
+
+            if (cognitoUser != null) {
+
+                console.log(idToken);
+                console.log(cognitoUser);
+                cognitoUser.signOut();
+                cognitoUser = null;
+                //window.open("https://www.google.com","_self");
+                console.log('Logged out during test!');
+                console.log(idToken);
+                console.log(cognitoUser);
+            }
+        }
+    </script>
+    </body>
+</html>
