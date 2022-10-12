@@ -37,11 +37,9 @@
 
             if (cognitoUser != null) {
 
-                console.log(idToken);
-                console.log(cognitoUser);
                 cognitoUser.signOut();
                 cognitoUser = null;
-                //window.open("https://www.google.com","_self");
+                window.open("https://www.brightsolid-manager.co.uk/loginPage.html","_self");
                 console.log('Logged out during test!');
                 console.log(idToken);
                 console.log(cognitoUser);
