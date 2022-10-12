@@ -67,6 +67,7 @@
               </thead>
               </tr>
               <tr>
+                <button id="LearnMore">Learn More</button>
               </tr>
                 
         </table>
@@ -83,6 +84,9 @@
               $.getJSON('https://i84e30oa3l.execute-api.eu-west-2.amazonaws.com/rds-api-post/rds-api', function(data) {
                   const jString = JSON.stringify(data.body);   
                   jsonRuleData = JSON.parse(jString);   
+                  
+                  
+
                   for (var i = 1; i < jsonRuleData.length; i++) {
                         var counter = jsonRuleData[i];
                         parsed = JSON.parse(counter);
@@ -94,12 +98,36 @@
                           status = "Non-Compliant"
                         }
 
-                        var tblRow = "<tr>" + "<td>" + parsed.rule_name + "</td>" +
-                        "<td>" + parsed.rule_description + "</td>" + "<td>" + parsed.total_count + "</td>" + "<td>" + compliant + "</td>" + "<td>"
-                         + parsed.non_compliant_resources + "</td>" + "<td>"
-                        + parsed.exception_count + "</td>" + "<td>" + status + "</td>" + "</tr>"
-                        $(tblRow).appendTo("#ruleData tbody");
-              }       
+                        let button = document.createElement('button');
+                        button.innerText = "Learn More";
+                        button.id = i;
+                        
+
+                        var name = parsed.rule_name
+                        function displayInfo(compliance){
+                          var tblRow =  "<tr>" + "<td>" + parsed.rule_name + "</td>" +
+                          "<td>" + parsed.rule_description + "</td>" + "<td>" + parsed.total_count + "</td>" + "<td>" + compliant + "</td>" + "<td>"
+                          + parsed.non_compliant_resources + "</td>" + "<td>"
+                          + parsed.exception_count + "</td>" + "<td>" + status + compliance + "</span>" + "</td>" + "<td>" + button.outerHTML + "</td>" + "</tr>" 
+                          $(tblRow).appendTo("#ruleData tbody");
+                        }
+                        if (nonCompliant > 0) {
+                          displayInfo("<span class = 'redDot'>")
+                        }
+                        else{
+                          displayInfo("<span class = 'greenDot'>")
+                        }
+                        
+
+
+                        $("button").click(function() {
+                          location.href = "DetailedReportManager.html?'button.id'"
+                          var pageNumber = this.id;
+                          sessionStorage.setItem("pageNumber", pageNumber);
+                        });
+                    
+              }  
+                   
             });
           });
         </script>
