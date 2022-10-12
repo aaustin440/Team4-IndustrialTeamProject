@@ -15,7 +15,7 @@
     <main>
       <nav class="navbar bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="https://www.brightsolid-manager.co.uk/dashboardManager.html">Home</a>
         </div>
       </nav>
         <div class="container" id ="container">
@@ -84,6 +84,20 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <table class="table" id="resourceData">
+            <thead>
+            <tr>
+                <th>Resource ID</th>
+                <th>Resource Name</th>
+                <th>Resource Reference</th>
+                <th>Compliant?</th>
+          </thead>
+          </tr>
+          <tr>
+
+          </tr>
+            
+    </table>
       </div>
     </main>
     <script src="jscript.js"></script>
@@ -111,7 +125,37 @@
                     document.getElementById("complianceDot").innerHTML = "<span class = 'greenDot'>"
                 }
                 document.getElementById("complianceStatus").innerHTML = "Status: " + status;
+                $.getJSON('https://xspjl4bgeb.execute-api.eu-west-2.amazonaws.com/rds-resource-stage/rds-api', function(data) {
+                const jString = JSON.stringify(data.body);   
+                jsonRuleData = JSON.parse(jString);
+                
+                for (var i = 1; i < jsonRuleData.length; i++) {
+                    
+                    var counter = jsonRuleData[i];
+                    //document.write(counter)
+                    resourceParsed = JSON.parse(counter);
+                    //document.write(parsed.resource_id)
+                    
+                    function displayInfo(compliance, dot){
+                    var tblRow =  "<tr>" + "<td>" + resourceParsed.resource_id + "</td>" +
+                    "<td>" + resourceParsed.resource_name + "</td>" + "<td>" + resourceParsed.resource_ref + "</td>" + "<td>" + compliance + dot + "</td>" + "<td>"
+                    $(tblRow).appendTo("#resourceData tbody");
+                    }
+                    if (resourceParsed.resource_type_id == parsed.resource_type_id){
+                        if (resourceParsed.compliant == 'None'){
+                            displayInfo("Yes  ", "<span class = 'greenDot' style = 'height: 20px; width: 20px'>");
+                        }
+                        else{
+                            displayInfo("No  ", "<span class = 'redDot' style = 'height: 20px; width: 20px'>");
+                        }
+                        
+                    }
+                    
+                    }
+                });
         });
+        
     </script>
   </body>
+</html>
 </html>
