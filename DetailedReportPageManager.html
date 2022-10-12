@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   </head>
   <body>
     <main>
@@ -20,16 +21,21 @@
         <div class="container" id ="container">
           <div class ="status">
             <div class="row">
-                <div class="col-6">
-                  <h2>Rule</h2>
+                <div class="col-7">
+                  <h2 id="rule"></h2>
                 </div>
-              <div class="col-4">
-                <h2>Status: Compliant</h2>
-              </div>
-              <div class="col-1">
-                <span class ="dot"></span>
+              <div class="col-5">
+                <h2 id="complianceStatus">Status: Compliant</h2>
               </div>
             </div>
+            <div class="row">
+                <div class="col-9">
+                </div>
+                <div class="col-1">
+                    <span id="complianceDot"></span>
+                </div>
+            </div>
+            
           </div>
           <h3>Change Font Size</h3>
           <button type="button" 
@@ -42,23 +48,7 @@
               +
         </button>
         <div class="rule-info" id="rule-info">
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla mauris finibus nulla consectetur, a facilisis ligula rhoncus. Praesent efficitur in dui id
-                pretium. Quisque tincidunt viverra fringilla. Nam a arcu sed tellus interdum porta et quis enim. Maecenas rhoncus odio vel mattis facilisis. Vivamus ullamcorper 
-                sollicitudin nibh, non posuere turpis scelerisque sit amet. In hac habitasse platea dictumst. Proin euismod vel nibh non posuere. Aenean ultricies tempus scelerisque.
-                Curabitur malesuada mattis odio, eu sodales ex. Vestibulum cursus venenatis maximus. Morbi nec molestie magna. Mauris sit amet malesuada quam. Nullam ullamcorper, 
-                dui a mollis accumsan, est sapien dapibus tortor, ac facilisis lectus mauris ac ligula. Praesent blandit velit ac mi hendrerit, a egestas enim malesuada.
-                </p>
-                <p>
-                Nunc condimentum vulputate mauris, ac elementum augue eleifend sit amet. Suspendisse imperdiet cursus maximus. Sed lacinia lobortis libero nec vestibulum. 
-                Suspendisse luctus lorem a tortor aliquet, non volutpat ex efficitur. Vivamus a leo nulla. Proin consectetur odio vitae est pharetra finibus. Nulla non dolor
-                non leo interdum egestas. Cras tristique massa et purus accumsan luctus. Donec sodales tellus nunc, a finibus quam sagittis vel. Vivamus eget nulla et sapien
-                empus finibus ut id nisi. Maecenas lorem urna, mattis ac vestibulum eget, euismod in dui. Etiam ut dui vel mi feugiat iaculis vitae quis dolor. Sed eget
-                elementum massa.
-                </p>
-                <p>
-                Duis efficitur neque nec dictum laoreet. Fusce semper velit at nibh rhoncus, eu eleifend nulla tincidunt. Pellentesque mi sem, vulputate sit amet arcu vulputate, volutpat pulvinar nisl. Mauris rutrum gravida convallis. Phasellus ut nisl vitae tellus congue consequat vitae ac nulla. Praesent ut ligula sodales, euismod turpis sed, dignissim massa. Nam libero sapien, placerat quis scelerisque non, eleifend sed tortor.
-                
-                Sed commodo et ipsum sit amet placerat. Integer eleifend sodales dolor, eget sodales turpis semper eu. Integer volutpat pellentesque sem accumsan suscipit. Suspendisse aliquet vehicula massa, sed vehicula ipsum imperdiet sit amet. Ut consequat dolor a imperdiet fringilla. Aenean sed gravida mauris, in sagittis erat. Integer ante est, hendrerit sed posuere quis, imperdiet id leo. Sed venenatis eget enim a varius. Suspendisse dapibus tincidunt porta. Nullam eget mi imperdiet erat lacinia pharetra et a turpis. Suspendisse sed sem nisl. Nulla vitae quam volutpat enim aliquet viverra. In diam ligula, tincidunt quis scelerisque sed, condimentum vitae nisl. In eu purus vulputate nunc facilisis tincidunt ac sed turpis.</p>
+            <p id="description"> </p>
         </div>
         <div class="current-exception" id="smallText">
             <div class="row">
@@ -97,5 +87,31 @@
       </div>
     </main>
     <script src="jscript.js"></script>
+    <script>
+        
+
+        var pageNumber = sessionStorage.getItem("pageNumber");
+        console.log(pageNumber);
+        
+        $.getJSON('https://i84e30oa3l.execute-api.eu-west-2.amazonaws.com/rds-api-post/rds-api', function(data) {
+                const jString = JSON.stringify(data.body);   
+                jsonRuleData = JSON.parse(jString);  
+                var counter = jsonRuleData[pageNumber];
+                parsed = JSON.parse(counter);
+                document.getElementById("rule").innerHTML = parsed.rule_name;
+                document.getElementById("description").innerHTML = parsed.rule_description;
+
+                var nonCompliant = parsed.non_compliant_resources
+                var status = "Compliant"
+                if (nonCompliant > 0) {
+                    status = "Non-Compliant"
+                    document.getElementById("complianceDot").innerHTML = "<span class = 'redDot'>"
+                }
+                else{
+                    document.getElementById("complianceDot").innerHTML = "<span class = 'greenDot'>"
+                }
+                document.getElementById("complianceStatus").innerHTML = "Status: " + status;
+        });
+    </script>
   </body>
 </html>
