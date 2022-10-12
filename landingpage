@@ -103,11 +103,11 @@ span.psw {
 <h2>Bright Solid Dashboard Login Page</h2>
 
 
-<form action="https://industrialteamauditor.auth.us-east-1.amazoncognito.com/login?client_id=2vejd3geei4r4n7oqdoc4sv3mg&response_type=code&scope=openid&redirect_uri=https://aaustin440.github.io/Team4-IndustrialTeamProject/landingpage.html">
+<form action="https://industrialteamauditor.auth.us-east-1.amazoncognito.com/login?client_id=2vejd3geei4r4n7oqdoc4sv3mg&response_type=code&scope=openid&redirect_uri=https://www.brightsolid-manager.co.uk/index.html">
         <button type="submit">Log In As Auditor</button>
      </form>
 
-     <form action="https://industrialteamtesting.auth.us-east-1.amazoncognito.com/login?client_id=30oe91bthp3eqc2lihncr0gu3o&response_type=code&scope=email+openid&redirect_uri=https://aaustin440.github.io/Team4-IndustrialTeamProject/dashboardManager.html/client_id=30oe91bthp3eqc2lihncr0gu3o&response_type=code&scope=email+openid&redirect_uri=https://aaustin440.github.io/Team4-IndustrialTeamProject/dashboardManager.html">
+     <form action="https://industrialteamtesting.auth.us-east-1.amazoncognito.com/login?client_id=7tb3lgotofaugt7rk0hldt199h&response_type=code&scope=openid&redirect_uri=https://www.brightsolid-manager.co.uk/dashboardManager.html">
          <button type="submit">Login As Manager</button>
       </form>
 <script>
