@@ -12,48 +12,44 @@
 </head>
 <body>
     <main>
-    <nav class="navbar bg-light">
+      <nav class="navbar bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">Home</a>
         </div>
       </nav>
 
     <div class="container" id ="container">
         <h2>Summary Dashboard</h2>
+        
+        <div class ="row" id="chart">
+            <div class ="col-6">
+              <h3>Rule Compliancy</h3>
+              <canvas id="ruleChart"></canvas>
+            </div>
+            <div class ="col-6">
+              <h3>Resource Compliancy</h3>
+              <canvas id="resourceChart"></canvas>
+            </div>
+          
+        </div>  
         <div class ="row" id ="sortChange">
             
-            <div class="col-8" id ="fontSize">
-            <h3>Change Font Size</h3>
-                <button type="button" 
-                    onclick="changeSizeByBtn('medium')" name="btn1">
-                        -
-                </button>
-                    
-                <button type="button" 
-                    onclick="changeSizeByBtn('xx-large')" name="btn2">
-                        +
-                </button>
-            </div>
-            <div class ="col-4">
-                <div class="dropdown">
-                    <button class="bstn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Sort By
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#"> Review Date</a></li>
-                    <li><a class="dropdown-item" href="#">Exception</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div id ="chart">
-          <canvas id="myChart"></canvas>
-        </div>
-        <p id="demo"></p>
-        
+          <div class="col-8" id ="fontSize">
+          <h3>Change Font Size</h3>
+              <button type="sizeButton" 
+                  onclick="changeSizeByBtn('medium')" name="btn1">
+                      -
+              </button>
+                  
+              <button type="sizeButton" 
+                  onclick="changeSizeByBtn('xx-large')" name="btn2">
+                      +
+              </button>
+          </div>
+      </div>
           
         <table class="table" id="ruleData">
+
                 <thead>
                 <tr>
                     <th>Rule</th>
@@ -63,11 +59,11 @@
                     <th>Non-Compliant Resources</th>
                     <th>Number of Exceptions</th>
                     <th>Status</th>
-                    
+                    <th>Learn More</th>
               </thead>
               </tr>
               <tr>
-                <button id="LearnMore">Learn More</button>
+
               </tr>
                 
         </table>
@@ -101,9 +97,9 @@
                   status = "Non-Compliant"
                 }
 
-                let button = document.createElement('button');
-                button.innerText = "Learn More";
-                button.id = i;
+                let resourceButton = document.createElement('button');
+                resourceButton.innerText = "Learn More";
+                resourceButton.id = i;
                 
 
                 var name = parsed.rule_name
@@ -111,7 +107,7 @@
                   var tblRow =  "<tr>" + "<td>" + parsed.rule_name + "</td>" +
                   "<td>" + parsed.rule_description + "</td>" + "<td>" + parsed.total_count + "</td>" + "<td>" + compliant + "</td>" + "<td>"
                   + parsed.non_compliant_resources + "</td>" + "<td>"
-                  + parsed.exception_count + "</td>" + "<td>" + status + compliance + "</span>" + "</td>" + "<td>" + button.outerHTML + "</td>" + "</tr>" 
+                  + parsed.exception_count + "</td>" + "<td>" + status + compliance + "</span>" + "</td>" + "<td>" + resourceButton.outerHTML + "</td>" + "</tr>" 
                   $(tblRow).appendTo("#ruleData tbody");
                 }
                 if (nonCompliant > 0) {
@@ -123,11 +119,16 @@
                 
 
 
-                $("button").click(function() {
-                  location.href = "https://www.brightsolid-manager.co.uk/DetailedReportPage.html"
-                  //location.href = "DetailedReportManager.html"
-                  var pageNumber = this.id;
-                  sessionStorage.setItem("pageNumber", pageNumber);
+                $("Button").click(function() {
+
+                    var pageNumber = this.id;
+                    if (pageNumber > 0){
+                    location.href = "https://www.brightsolid-manager.co.uk/DetailedReportPage.html"
+                    //location.href = "DetailedReportManager.html"
+                    
+                    sessionStorage.setItem("pageNumber", pageNumber);
+
+                }
                 }); 
               }
               });
@@ -135,8 +136,13 @@
               </script>
               <script>
                 var compliance = []
+                var ruleCompliance = []
+
                 var nonCompliant = 0
-                var total = 0
+                var resourceTotal = 0
+                
+
+                var nonCompliantRule = 0
                 $(function() {
                 src="https://cdn.jsdelivr.net/npm/chart.js"
                 $.getJSON('https://i84e30oa3l.execute-api.eu-west-2.amazonaws.com/rds-api-post/rds-api', function(data2) {
@@ -149,17 +155,25 @@
                       var counter = jsonRuleData[i];
                       parsed = JSON.parse(counter);
                       nonCompliant += parsed.non_compliant_resources;
-                      total += parsed.total_count
-                      
+                      resourceTotal += parsed.total_count
+                      if (parsed.non_compliant_resources > 0){
+                        nonCompliantRule += 1;
+                      }
                 }
-                compliance[0] = total
+                var ruleTotal = i;
+                var ruleCompliant = ruleTotal - nonCompliantRule
+                ruleCompliance[0] = ruleCompliant
+                ruleCompliance[1] = nonCompliantRule
+
+                var resourceCompliant = resourceTotal - nonCompliant
+                compliance[0] = resourceCompliant
                 compliance[1] = nonCompliant
-                makeChart(compliance)
+                makeChart(compliance, 'resourceChart')
+                makeChart(ruleCompliance, 'ruleChart')
                 });
               });
 
-              function makeChart(compliance){
-                console.log(compliance[0]);
+              function makeChart(compliance, chartName){
                 const data = {
                 labels: [
                   'Non-Compliant',
@@ -182,7 +196,7 @@
                   };
               
               const myChart = new Chart(
-                document.getElementById('myChart'),
+                document.getElementById(chartName),
                 config
                 )
                 };
