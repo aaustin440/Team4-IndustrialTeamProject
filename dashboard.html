@@ -93,7 +93,7 @@
                 nonCompliant = parsed.non_compliant_resources
                 compliant = parsed.total_count - nonCompliant
                 var status = "Compliant"
-                if (nonCompliant > 0) {
+                if (nonCompliant > 0 && parsed.exception_count == 0) {
                   status = "Non-Compliant"
                 }
 
@@ -110,7 +110,7 @@
                   + parsed.exception_count + "</td>" + "<td>" + status + compliance + "</span>" + "</td>" + "<td>" + resourceButton.outerHTML + "</td>" + "</tr>" 
                   $(tblRow).appendTo("#ruleData tbody");
                 }
-                if (nonCompliant > 0) {
+                if (nonCompliant > 0 && parsed.exception_count == 0) {
                   displayInfo("<span class = 'redDot'>")
                 }
                 else{
