@@ -16,14 +16,17 @@
   </head>
   <body>
     <main>
-      <nav class="navbar bg-light">
+      <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-
-          <a class="navbar-brand" href="https://www.brightsolid-manager.co.uk/dashboardAuditor.html">Home</a>
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">
+            <img src="Images\BrightSolidlogo.jpg" width="30%" height="20%" class="d-inline-block align-top" alt="">
+          </a>
+              <div class="nav-right">
+                <a div class="navbar-brand" href="https://www.brightsolid-manager.co.uk/dashboardAuditor.html">Dashboard</a>
+                <a div class="navbar-brand" href="">Log Out</a>
+              </div>
 
         </div>
-      </nav>
         <div class="container" id ="container">
           <div class ="status">
             <div class="row">
@@ -43,10 +46,10 @@
                 </div>
             </div>
             <div id="chart">
-            
+
                   <h3>Rule Compliancy</h3>
                   <canvas id="resourceChart" style="max-width: 800px; max-height: 800px; margin:auto;"></canvas>
-       
+
 
                 <div class="col-6">
                   <h2>Rule</h2>
@@ -60,12 +63,12 @@
             </div>
           </div>
           <h3>Change Font Size</h3>
-          <button type="button" 
+          <button type="button"
           onclick="changeSizeByBtn('medium')" name="btn1">
               -
           </button>
-        
-         <button type="button" 
+
+         <button type="button"
           onclick="changeSizeByBtn('xx-large')" name="btn2">
               +
         </button>
@@ -73,7 +76,7 @@
             <h4>Rule Description</h4>
             <p id="description"> </p>
         </div>
- 
+
         <table class="table" id="resourceData">
             <h4>Resources</h4>
             <thead>
@@ -87,20 +90,20 @@
           <tr>
 
           </tr>
-            
+
     </table>
       </div>
     </main>
     <script src="jscript.js"></script>
     <script>
-        
+
 
         var pageNumber = sessionStorage.getItem("pageNumber");
         console.log(pageNumber);
-        
+
         $.getJSON('https://i84e30oa3l.execute-api.eu-west-2.amazonaws.com/rds-api-post/rds-api', function(data) {
-                const jString = JSON.stringify(data.body);   
-                jsonRuleData = JSON.parse(jString);  
+                const jString = JSON.stringify(data.body);
+                jsonRuleData = JSON.parse(jString);
                 var counter = jsonRuleData[pageNumber];
                 parsed = JSON.parse(counter);
                 document.getElementById("rule").innerHTML = parsed.rule_name;
@@ -117,17 +120,17 @@
                 }
                 document.getElementById("complianceStatus").innerHTML = "Status: " + status;
                 $.getJSON('https://xspjl4bgeb.execute-api.eu-west-2.amazonaws.com/rds-resource-stage/rds-api', function(data) {
-                const jString = JSON.stringify(data.body);   
+                const jString = JSON.stringify(data.body);
                 jsonRuleData = JSON.parse(jString);
-                
+
                 var total = 0
                 var nonCompliant = 0
                 console.log("working")
                 for (var i = 1; i < jsonRuleData.length - 1; i++) {
-                    
+
                     var counter = jsonRuleData[i];
                     resourceParsed = JSON.parse(counter);
-                    
+
                     function displayInfo(compliance, dot){
                     var tblRow =  "<tr>" + "<td>" + resourceParsed.resource_id + "</td>" +
                     "<td>" + resourceParsed.resource_name + "</td>" + "<td>" + resourceParsed.resource_ref + "</td>" + "<td>" + compliance + dot + "</td>" + "<td>"
@@ -143,11 +146,11 @@
                         }
                         total += 1
                     }
-                    
+
                     }
                     console.log("working")
                     var compliance = []
-                    
+
                     var compliant = total - nonCompliant
                     compliance[0] = compliant
                     compliance[1] = nonCompliant
@@ -155,7 +158,7 @@
                 });
 
         });
-        
+
         function makeChart(compliance, chartName){
                 const data = {
                 labels: [
@@ -177,22 +180,22 @@
                   type: 'doughnut',
                   data: data,
                   };
-              
+
               const myChart = new Chart(
                 document.getElementById(chartName),
                 config
                 )
                 };
-        
+
     </script>
             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla mauris finibus nulla consectetur, a facilisis ligula rhoncus. Praesent efficitur in dui id
-                pretium. Quisque tincidunt viverra fringilla. Nam a arcu sed tellus interdum porta et quis enim. Maecenas rhoncus odio vel mattis facilisis. Vivamus ullamcorper 
+                pretium. Quisque tincidunt viverra fringilla. Nam a arcu sed tellus interdum porta et quis enim. Maecenas rhoncus odio vel mattis facilisis. Vivamus ullamcorper
                 sollicitudin nibh, non posuere turpis scelerisque sit amet. In hac habitasse platea dictumst. Proin euismod vel nibh non posuere. Aenean ultricies tempus scelerisque.
-                Curabitur malesuada mattis odio, eu sodales ex. Vestibulum cursus venenatis maximus. Morbi nec molestie magna. Mauris sit amet malesuada quam. Nullam ullamcorper, 
+                Curabitur malesuada mattis odio, eu sodales ex. Vestibulum cursus venenatis maximus. Morbi nec molestie magna. Mauris sit amet malesuada quam. Nullam ullamcorper,
                 dui a mollis accumsan, est sapien dapibus tortor, ac facilisis lectus mauris ac ligula. Praesent blandit velit ac mi hendrerit, a egestas enim malesuada.
                 </p>
                 <p>
-                Nunc condimentum vulputate mauris, ac elementum augue eleifend sit amet. Suspendisse imperdiet cursus maximus. Sed lacinia lobortis libero nec vestibulum. 
+                Nunc condimentum vulputate mauris, ac elementum augue eleifend sit amet. Suspendisse imperdiet cursus maximus. Sed lacinia lobortis libero nec vestibulum.
                 Suspendisse luctus lorem a tortor aliquet, non volutpat ex efficitur. Vivamus a leo nulla. Proin consectetur odio vitae est pharetra finibus. Nulla non dolor
                 non leo interdum egestas. Cras tristique massa et purus accumsan luctus. Donec sodales tellus nunc, a finibus quam sagittis vel. Vivamus eget nulla et sapien
                 empus finibus ut id nisi. Maecenas lorem urna, mattis ac vestibulum eget, euismod in dui. Etiam ut dui vel mi feugiat iaculis vitae quis dolor. Sed eget
@@ -200,7 +203,7 @@
                 </p>
                 <p>
                 Duis efficitur neque nec dictum laoreet. Fusce semper velit at nibh rhoncus, eu eleifend nulla tincidunt. Pellentesque mi sem, vulputate sit amet arcu vulputate, volutpat pulvinar nisl. Mauris rutrum gravida convallis. Phasellus ut nisl vitae tellus congue consequat vitae ac nulla. Praesent ut ligula sodales, euismod turpis sed, dignissim massa. Nam libero sapien, placerat quis scelerisque non, eleifend sed tortor.
-                
+
                 Sed commodo et ipsum sit amet placerat. Integer eleifend sodales dolor, eget sodales turpis semper eu. Integer volutpat pellentesque sem accumsan suscipit. Suspendisse aliquet vehicula massa, sed vehicula ipsum imperdiet sit amet. Ut consequat dolor a imperdiet fringilla. Aenean sed gravida mauris, in sagittis erat. Integer ante est, hendrerit sed posuere quis, imperdiet id leo. Sed venenatis eget enim a varius. Suspendisse dapibus tincidunt porta. Nullam eget mi imperdiet erat lacinia pharetra et a turpis. Suspendisse sed sem nisl. Nulla vitae quam volutpat enim aliquet viverra. In diam ligula, tincidunt quis scelerisque sed, condimentum vitae nisl. In eu purus vulputate nunc facilisis tincidunt ac sed turpis.</p>
         </div>
         <div class="current-exception" id="smallText">
@@ -218,9 +221,9 @@
                       <p>25/12/2024</p>
                     </div>
                 </div>
-            </div>        
+            </div>
           </div>
-        
+
       </div>
     </main>
     <script src="jscript.js"></script>

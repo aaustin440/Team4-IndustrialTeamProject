@@ -14,11 +14,18 @@
   </head>
   <body>
     <main>
-      <nav class="navbar bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="https://www.brightsolid-manager.co.uk/dashboardManager.html">Home</a>
+
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="Images\BrightSolidlogo.jpg" width="30%" height="20%" class="d-inline-block align-top" alt="">
+    </a>
+        <div class="nav-right">
+          <a div class="navbar-brand" href="https://www.brightsolid-manager.co.uk/dashboardManager.html">Dashboard</a>
+          <a div class="navbar-brand" href="">Log Out</a>
         </div>
-      </nav>
+
+  </div>
         <div class="container" id ="container">
           <div class ="status">
             <div class="row">
@@ -37,18 +44,18 @@
                 </div>
             </div>
             <div id="chart">
-            
+
                   <h3>Rule Compliancy</h3>
                   <canvas id="resourceChart" style="max-width: 800px; max-height: 800px; margin:auto;"></canvas>
-       
+
           </div>
           <h3>Change Font Size</h3>
-          <button type="button" 
+          <button type="button"
           onclick="changeSizeByBtn('medium')" name="btn1">
               -
           </button>
-        
-         <button type="button" 
+
+         <button type="button"
           onclick="changeSizeByBtn('xx-large')" name="btn2">
               +
         </button>
@@ -56,7 +63,7 @@
             <h4>Rule Description</h4>
             <p id="description"> </p>
         </div>
- 
+
         <table class="table" id="resourceData">
             <h4>Resources</h4>
             <thead>
@@ -70,20 +77,20 @@
           <tr>
 
           </tr>
-            
+
     </table>
       </div>
     </main>
     <script src="jscript.js"></script>
     <script>
-        
+
 
         var pageNumber = sessionStorage.getItem("pageNumber");
         console.log(pageNumber);
-        
+
         $.getJSON('https://i84e30oa3l.execute-api.eu-west-2.amazonaws.com/rds-api-post/rds-api', function(data) {
-                const jString = JSON.stringify(data.body);   
-                jsonRuleData = JSON.parse(jString);  
+                const jString = JSON.stringify(data.body);
+                jsonRuleData = JSON.parse(jString);
                 var counter = jsonRuleData[pageNumber];
                 parsed = JSON.parse(counter);
                 document.getElementById("rule").innerHTML = parsed.rule_name;
@@ -100,17 +107,17 @@
                 }
                 document.getElementById("complianceStatus").innerHTML = "Status: " + status;
                 $.getJSON('https://xspjl4bgeb.execute-api.eu-west-2.amazonaws.com/rds-resource-stage/rds-api', function(data) {
-                const jString = JSON.stringify(data.body);   
+                const jString = JSON.stringify(data.body);
                 jsonRuleData = JSON.parse(jString);
-                
+
                 var total = 0
                 var nonCompliant = 0
                 console.log("working")
                 for (var i = 1; i < jsonRuleData.length - 1; i++) {
-                    
+
                     var counter = jsonRuleData[i];
                     resourceParsed = JSON.parse(counter);
-                    
+
                     function displayInfo(compliance, dot){
                     var tblRow =  "<tr>" + "<td>" + resourceParsed.resource_id + "</td>" +
                     "<td>" + resourceParsed.resource_name + "</td>" + "<td>" + resourceParsed.resource_ref + "</td>" + "<td>" + compliance + dot + "</td>" + "<td>"
@@ -126,11 +133,11 @@
                         }
                         total += 1
                     }
-                    
+
                     }
                     console.log("working")
                     var compliance = []
-                    
+
                     var compliant = total - nonCompliant
                     compliance[0] = compliant
                     compliance[1] = nonCompliant
@@ -138,7 +145,7 @@
                 });
 
         });
-        
+
         function makeChart(compliance, chartName){
                 const data = {
                 labels: [
@@ -160,13 +167,13 @@
                   type: 'doughnut',
                   data: data,
                   };
-              
+
               const myChart = new Chart(
                 document.getElementById(chartName),
                 config
                 )
                 };
-        
+
     </script>
   </body>
 </html>

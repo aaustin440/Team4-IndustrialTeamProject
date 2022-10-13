@@ -15,18 +15,20 @@
 </head>
 <body>
     <main>
-      <nav class="navbar bg-light">
+      <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Home</a>
-    <nav class="navbar bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">
+            <img src="Images\BrightSolidlogo.jpg" width="30%" height="20%" class="d-inline-block align-top" alt="">
+          </a>
+              <div class="nav-right">
+                <a div class="navbar-brand" href="https://www.brightsolid-manager.co.uk/dashboardAuditor.html">Dashboard</a>
+                <a div class="navbar-brand" href="">Log Out</a>
+              </div>
         </div>
-      </nav>
 
     <div class="container" id ="container">
         <h2>Summary Dashboard</h2>
-      
+
         <div class ="row" id="chart">
             <div class ="col-6">
               <h3>Rule Compliancy</h3>
@@ -36,36 +38,36 @@
               <h3>Resource Compliancy</h3>
               <canvas id="resourceChart"></canvas>
             </div>
-          
-        </div>  
+
+        </div>
         <div class ="row" id ="sortChange">
-            
+
           <div class="col-8" id ="fontSize">
           <h3>Change Font Size</h3>
-              <button type="sizeButton" 
+              <button type="sizeButton"
                   onclick="changeSizeByBtn('medium')" name="btn1">
                       -
               </button>
-                  
-              <button type="sizeButton" 
+
+              <button type="sizeButton"
                   onclick="changeSizeByBtn('xx-large')" name="btn2">
                       +
               </button>
           </div>
       </div>
-          
+
         <table class="table" id="ruleData">
 
         <div class ="row" id ="sortChange">
-            
+
             <div class="col-8" id ="fontSize">
             <h3>Change Font Size</h3>
-                <button type="button" 
+                <button type="button"
                     onclick="changeSizeByBtn('medium')" name="btn1">
                         -
                 </button>
-                    
-                <button type="button" 
+
+                <button type="button"
                     onclick="changeSizeByBtn('xx-large')" name="btn2">
                         +
                 </button>
@@ -100,11 +102,11 @@
               <tr>
 
               </tr>
-                
+
                     <th>Number of Compliant Resources</th>
                     <th>Number of Exceptions</th>
                     <th>Status</th>
-                    
+
                 <th colspan="2">
 
                 </th>
@@ -136,10 +138,10 @@
       var nonCompliant
       var body = [];
       $.getJSON('https://i84e30oa3l.execute-api.eu-west-2.amazonaws.com/rds-api-post/rds-api', function(data) {
-          const jString = JSON.stringify(data.body);   
-          jsonRuleData = JSON.parse(jString);   
-          
-          
+          const jString = JSON.stringify(data.body);
+          jsonRuleData = JSON.parse(jString);
+
+
 
           for (var i = 1; i < jsonRuleData.length; i++) {
                 var counter = jsonRuleData[i];
@@ -155,14 +157,14 @@
                 let resourceButton = document.createElement('button');
                 resourceButton.innerText = "Learn More";
                 resourceButton.id = i;
-                
+
 
                 var name = parsed.rule_name
                 function displayInfo(compliance){
                   var tblRow =  "<tr>" + "<td>" + parsed.rule_name + "</td>" +
                   "<td>" + parsed.rule_description + "</td>" + "<td>" + parsed.total_count + "</td>" + "<td>" + compliant + "</td>" + "<td>"
                   + parsed.non_compliant_resources + "</td>" + "<td>"
-                  + parsed.exception_count + "</td>" + "<td>" + status + compliance + "</span>" + "</td>" + "<td>" + resourceButton.outerHTML + "</td>" + "</tr>" 
+                  + parsed.exception_count + "</td>" + "<td>" + status + compliance + "</span>" + "</td>" + "<td>" + resourceButton.outerHTML + "</td>" + "</tr>"
                   $(tblRow).appendTo("#ruleData tbody");
                 }
                 if (nonCompliant > 0 && parsed.exception_count == 0) {
@@ -171,7 +173,7 @@
                 else{
                   displayInfo("<span class = 'greenDot'>")
                 }
-                
+
 
 
                 $("Button").click(function() {
@@ -180,11 +182,11 @@
                     if (pageNumber > 0){
                     location.href = "https://www.brightsolid-manager.co.uk/DetailedReportPageAuditor.html"
                     //location.href = "DetailedReportManager.html"
-                    
+
                     sessionStorage.setItem("pageNumber", pageNumber);
 
                 }
-                }); 
+                });
               }
               });
               });
@@ -195,17 +197,17 @@
 
                 var nonCompliant = 0
                 var resourceTotal = 0
-                
+
 
                 var nonCompliantRule = 0
                 $(function() {
                 src="https://cdn.jsdelivr.net/npm/chart.js"
                 $.getJSON('https://i84e30oa3l.execute-api.eu-west-2.amazonaws.com/rds-api-post/rds-api', function(data2) {
                 const jString = JSON.stringify(data2.body);
-  
-                jsonRuleData = JSON.parse(jString);   
-                
-                
+
+                jsonRuleData = JSON.parse(jString);
+
+
                 for (var i = 1; i < jsonRuleData.length - 1; i++) {
                       var counter = jsonRuleData[i];
                       parsed = JSON.parse(counter);
@@ -249,13 +251,13 @@
                   type: 'doughnut',
                   data: data,
                   };
-              
+
               const myChart = new Chart(
                 document.getElementById(chartName),
                 config
                 )
                 };
         </script>
-   
+
     </body>
 </html>
