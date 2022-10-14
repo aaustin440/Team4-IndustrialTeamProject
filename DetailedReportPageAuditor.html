@@ -22,7 +22,7 @@
     </a>
         <div class="nav-right">
           <a div class="navbar-brand" href="https://www.brightsolid-manager.co.uk/dashboardAuditor.html">Dashboard</a>
-          <a div class="navbar-brand" href="">Log Out</a>
+          <a div class="navbar-brand" href = "https://www.brightsolid-manager.co.uk/index.html" onclick='logOut();'>Log Out</a>
         </div>
     </div>
 </nav>
@@ -176,6 +176,40 @@
                 };
 
     </script>
+  
+    <script>
+          
+            var userPoolId = 'us-east-1_GJd4E65mR';
+            var clientId = '7tb3lgotofaugt7rk0hldt199h';
+            var region = 'us-east-1';
+            var identityPoolId = 'us-east-1:a921c9d6-d0d5-417b-8ac2-7768fed47c31';
+            var cognitoUser;
+            var idToken;
+            var userPool;
+
+            var poolData = { 
+            UserPoolId : userPoolId,
+            ClientId : clientId
+            };
+
+            function logOut(){
+
+                userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+                cognitoUser = userPool.getCurrentUser();
+
+                if (cognitoUser != null) {
+
+                    cognitoUser.signOut();
+                    cognitoUser = null;
+                    window.open("https://www.brightsolid-manager.co.uk/index.html","_self");
+                    console.log('Logged out during test!');
+                    console.log(idToken);
+                    console.log(cognitoUser);
+                }
+            }
+          
+        </script>
+  
   </body>
 </html>
 </html>
